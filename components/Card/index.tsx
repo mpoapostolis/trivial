@@ -17,8 +17,8 @@ export default function Card(props: Props) {
 
   const answers = [...props.incorrect_answers, props.correct_answer].sort();
 
-  const givePoints = (type: "easy" | "medium" | "hard") => {
-    switch (type) {
+  const givePoints = () => {
+    switch (props.difficulty) {
       case "easy":
         return 2;
       case "medium":
@@ -39,17 +39,9 @@ export default function Card(props: Props) {
         {/*  ----------- */}
 
         <div
-          className={`px-3 py-2  flex items-center h-auto  rounded-r-lg 
-        ${
-          props.difficulty === "medium"
-            ? " bg-blue-400"
-            : props.difficulty === "easy"
-            ? " bg-green-500"
-            : " bg-red-400"
-        }
-        text-gray-100 text-sm font-bold`}
+          className={`px-3 py-2  border-l border-blue-600 flex items-center h-auto  rounded-r-lg text-gray-100 bg-blue-500 text-sm font-bold whitespace-no-wrap`}
         >
-          {props.difficulty}
+          {givePoints()} pts
         </div>
         {/*  ----------- */}
       </div>
@@ -66,9 +58,7 @@ export default function Card(props: Props) {
               if (!answer) {
                 const correct = answ === props.correct_answer;
                 setSound(correct ? "/bell.wav" : "gong.wav");
-                props.setPoints(
-                  correct ? givePoints(props.difficulty as any) : -2
-                );
+                props.setPoints(correct ? givePoints() : -2);
                 setAnswer(answ);
               }
             }}

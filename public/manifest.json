@@ -2,6 +2,7 @@
   "short_name": "omega-trivia",
   "name": "omegla-trivia",
   "lang": "en",
+  "start_url": "/",
   "description": "trivial game",
   "background_color": "#000000",
   "theme_color": "#000000",
@@ -75,5 +76,5 @@
       "sizes": "16x16"
     }
   ],
-  "prefer_related_applications": "false"
+  "prefer_related_applications": false
 }

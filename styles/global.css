@@ -23,6 +23,7 @@ a {
 }
 
 * {
+  outline: none !important;
   box-sizing: border-box;
 }
 

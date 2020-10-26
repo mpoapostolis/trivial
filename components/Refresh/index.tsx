@@ -14,15 +14,17 @@ export default function Badge(props: Props) {
       : `category=${router.query.cat}`;
 
   return (
-    <button
-      onClick={() => {
-        props.fetchData(category.toString());
-      }}
-      className={`${
-        props.loading ? "animate-spin scale-110 " : ""
-      }  fetch-more  bg-blue-700 text-white w-16 h-16 font-bold absolute flex  text-2xl justify-center items-center rounded-full`}
-    >
-      &#x21bb;
-    </button>
+    <>
+      <button
+        onClick={() => {
+          props.fetchData(category.toString());
+        }}
+        className={`${
+          props.loading ? "animate-spin scale-110 " : ""
+        }  fetch-more  bg-blue-700 text-white w-16 h-16 font-bold absolute flex  text-2xl justify-center items-center rounded-full`}
+      >
+        &#x21bb;
+      </button>
+    </>
   );
 }

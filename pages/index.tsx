@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Header, { categories } from "../components/Header";
+import Header from "../components/Header";
 import Card from "../components/Card";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -31,21 +31,22 @@ export default function Home() {
     );
   };
 
-  const cat =
-    categories.find((o) => o.value === router.query.cat)?.label ??
-    "Any Category";
-
   return (
     <>
       <Head>
-        <title>trivia onlinex</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>omega trivia </title>
+        <link rel="manifest" href="/manifest.json" />
+
+        <link
+          rel="icon"
+          href="/icon/favicon-16x16-dunplab-manifest-26426.png"
+        />
       </Head>
       <div className="overflow-hidden h-screen">
         <Header points={points} />
 
         <div
-          className={`px-1  pb-16 h-screen overflow-y-auto ${
+          className={`pb-24 h-screen overflow-y-auto ${
             loading ? "opacity-25" : ""
           }`}
         >
