@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const categories = [
+export const categories = [
   { value: "any", label: "Any Category" },
   { value: "9", label: "General Knowledge" },
   { value: "10", label: "Entertainment: Books" },
@@ -29,9 +29,9 @@ const categories = [
   { value: "32", label: "Entertainment: Cartoon: Animations" },
 ];
 
-export default function Header() {
+export default function Header(props: { points: number }) {
   const router = useRouter();
-  console.log(router.query.cat);
+
   return (
     <nav className="bg-white shadow z-50 border">
       <div className="container mx-auto px-6 py-3">
@@ -41,7 +41,7 @@ export default function Header() {
               <a
                 className={`${
                   cat.value === router.query.cat ||
-                  router.query.cat === undefined
+                  (router.query.cat === undefined && cat.value === "any")
                     ? "font-bold text-blue-600 text-base"
                     : ""
                 } text-sm text-gray-700 leading-5 hover:text-blue-600 hover:underline mx-4 md:my-0`}
@@ -51,6 +51,9 @@ export default function Header() {
             </Link>
           ))}
         </div>
+        <h1 className="text-gray-800 font-bold text-lg text-center">
+          Points: {props.points}
+        </h1>
       </div>
     </nav>
   );

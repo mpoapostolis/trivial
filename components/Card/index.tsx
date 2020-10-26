@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 type Props = {
   category: string;
@@ -7,12 +7,26 @@ type Props = {
   incorrect_answers: string[];
   question: string;
   type: string;
+  setPoints: (e: number) => void;
 };
 
 export default function Card(props: Props) {
+  const [answer, setAnswer] = useState<string>();
+
+  const [sound, setSound] = useState<string>();
+
   const answers = [...props.incorrect_answers, props.correct_answer].sort();
 
-  const [answer, setAnswer] = useState<string>();
+  const givePoints = (type: "easy" | "medium" | "hard") => {
+    switch (type) {
+      case "easy":
+        return 2;
+      case "medium":
+        return 4;
+      case "hard":
+        return 5;
+    }
+  };
 
   return (
     <div className="max-w-2xl border my-10 mx-auto px-8 pb-4 bg-white rounded-lg shadow-md">
@@ -48,7 +62,16 @@ export default function Card(props: Props) {
       <div className="grid grid-cols-2 gap-2">
         {answers.map((answ) => (
           <button
-            onClick={() => !answer && setAnswer(answ)}
+            onClick={() => {
+              if (!answer) {
+                const correct = answ === props.correct_answer;
+                setSound(correct ? "/bell.wav" : "gong.wav");
+                props.setPoints(
+                  correct ? givePoints(props.difficulty as any) : -2
+                );
+                setAnswer(answ);
+              }
+            }}
             dangerouslySetInnerHTML={{ __html: answ }}
             className={`${
               answer
@@ -61,6 +84,9 @@ export default function Card(props: Props) {
           ></button>
         ))}
       </div>
+      <audio src={sound} autoPlay></audio>
+      <audio preload="auto" src={"bell.wav"}></audio>
+      <audio preload="auto" src={"gong.wav"}></audio>
     </div>
   );
 }

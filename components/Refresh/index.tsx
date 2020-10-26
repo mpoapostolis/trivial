@@ -8,10 +8,15 @@ type Props = {
 export default function Badge(props: Props) {
   const router = useRouter();
 
+  const category =
+    router.query.cat === "any" || router.query.cat === undefined
+      ? ""
+      : `category=${router.query.cat}`;
+
   return (
     <button
       onClick={() => {
-        props.fetchData(router.query.cat.toString());
+        props.fetchData(category.toString());
       }}
       className={`${
         props.loading ? "animate-spin scale-110 " : ""
