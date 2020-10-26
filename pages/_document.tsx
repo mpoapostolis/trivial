@@ -13,6 +13,21 @@ class MyDocument extends Document {
           <title>omega trivia </title>
           <link rel="manifest" href="/manifest.json" />
 
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-RYKRKCMBJ8"
+          ></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                      window.dataLayer = window.dataLayer || [];
+                      function gtag(){dataLayer.push(arguments);}
+                      gtag('js', new Date());
+                      gtag('config', 'G-RYKRKCMBJ8')
+                      `,
+            }}
+          ></script>
+
           <link
             rel="icon"
             href="/icon/favicon-16x16-dunplab-manifest-26426.png"
