@@ -1,1 +1,1 @@
-Open [https://trivial-omega.vercel.app/](Demo) with your browser to see the result.
+Open [demo](https://trivial-omega.vercel.app/) with your browser to see the result.
