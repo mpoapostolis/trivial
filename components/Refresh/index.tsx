@@ -1,4 +1,3 @@
-import { useReducer } from "react";
 import { useRouter } from "next/router";
 
 type Props = {
@@ -17,6 +16,7 @@ export default function Badge(props: Props) {
     <>
       <button
         onClick={() => {
+          document?.querySelector("#reset")?.scrollTo(0, 0);
           props.fetchData(category.toString());
         }}
         className={`${

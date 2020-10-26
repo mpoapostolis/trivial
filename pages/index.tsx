@@ -37,10 +37,22 @@ export default function Home() {
         <title>omega trivia </title>
         <link rel="manifest" href="/manifest.json" />
 
+        <meta name="description" content="Free online trivia game" />
+        <meta
+          name="keywords"
+          content="trivia, free trivia, trivia game, trivia-game"
+        />
+
+        <meta name="author" content="mpoapostolis@gmail.com" />
         <link
           rel="icon"
           href="/icon/favicon-16x16-dunplab-manifest-26426.png"
         />
+        <script
+          data-ad-client="ca-pub-3337605713038685"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        ></script>
       </Head>
       <div className="overflow-hidden h-screen">
         <Header points={points} />

@@ -9,7 +9,15 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <title>omega trivia </title>
+          <link rel="manifest" href="/manifest.json" />
+
+          <link
+            rel="icon"
+            href="/icon/favicon-16x16-dunplab-manifest-26426.png"
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />
