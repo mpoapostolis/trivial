@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import useOnClickOutside from "use-onclickoutside";
 
 export const categories = [
   { value: "any", label: "Any Category" },
@@ -33,9 +34,14 @@ export const categories = [
 export default function Header() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const ref = useRef();
+
+  useOnClickOutside(ref, function () {
+    setOpen(false);
+  });
 
   return (
-    <nav className="bg-white shadow z-50 border">
+    <nav ref={ref} className="bg-white shadow z-50 border">
       <div className="md:block hidden container mx-auto px-6 py-3">
         <div className="py-3 w-full -mx-3 overflow-x-auto whitespace-no-wrap scroll-hidden">
           {categories.map((cat) => (

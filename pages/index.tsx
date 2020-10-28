@@ -44,6 +44,12 @@ export default function Home() {
         <link rel="manifest" href="/manifest.json" />
 
         <meta name="description" content="Free online trivia game" />
+        <meta property="og:title" content="Omega Trivia" />
+        <meta property="og:type" content="question.game" />
+        <meta
+          property="og:image"
+          content="/icon/favicon-16x16-dunplab-manifest-26426.png"
+        />
         <meta
           name="keywords"
           content="trivia, free trivia, trivia game, trivia-game"
