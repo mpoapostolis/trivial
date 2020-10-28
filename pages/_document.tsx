@@ -18,6 +18,11 @@ class MyDocument extends Document {
             src="https://www.googletagmanager.com/gtag/js?id=G-RYKRKCMBJ8"
           ></script>
           <script
+            data-ad-client="ca-pub-3337605713038685"
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          ></script>
+          <script
             dangerouslySetInnerHTML={{
               __html: `
                       window.dataLayer = window.dataLayer || [];

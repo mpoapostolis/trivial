@@ -29,7 +29,7 @@ a {
 
 .fetch-more {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 0px;
+  left: 0px;
   z-index: 50;
 }

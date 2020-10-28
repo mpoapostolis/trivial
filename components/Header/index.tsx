@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export const categories = [
   { value: "any", label: "Any Category" },
@@ -29,12 +30,13 @@ export const categories = [
   { value: "32", label: "Entertainment: Cartoon: Animations" },
 ];
 
-export default function Header(props: { points: number }) {
+export default function Header() {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
 
   return (
     <nav className="bg-white shadow z-50 border">
-      <div className="container mx-auto px-6 py-3">
+      <div className="md:block hidden container mx-auto px-6 py-3">
         <div className="py-3 w-full -mx-3 overflow-x-auto whitespace-no-wrap scroll-hidden">
           {categories.map((cat) => (
             <Link key={cat.value} href={`?cat=${cat.value}`}>
@@ -51,9 +53,53 @@ export default function Header(props: { points: number }) {
             </Link>
           ))}
         </div>
-        <h1 className="text-gray-800 font-bold text-lg text-center">
-          Points: {props.points}
-        </h1>
+      </div>
+      <div className="block md:hidden  relative">
+        {/* Dropdown toggle button */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="relative z-10 flex items-center justify-center  w-full rounded-md bg-white p-2 focus:outline-none "
+        >
+          Category:{" "}
+          {categories.find((c) => c.value === router.query.cat)?.label ??
+            `Any Category`}
+          <svg
+            className="h-5 w-5 text-gray-800"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+        {/* Dropdown menu */}
+        <div
+          className={`absolute border h-64 right-0 mt-1 w-full bg-white rounded-md shadow-xl z-20 ${
+            open ? "block" : "hidden"
+          }`}
+        >
+          <div className="my-4 h-56 overflow-y-auto overflow-x-hidden">
+            {categories.map((cat) => (
+              <Link key={cat.value} href={`?cat=${cat.value}`}>
+                <a
+                  onClick={() => setOpen(!open)}
+                  className={`${
+                    cat.value === router.query.cat ||
+                    (router.query.cat === undefined && cat.value === "any")
+                      ? "text-blue-600 text-base"
+                      : ""
+                  } text-sm font-bold pb-2 block text-gray-700 border-b w-full my-3 leading-5 hover:text-blue-600 hover:underline mx-4 md:my-0`}
+                >
+                  {cat.label}
+                </a>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </nav>
   );

@@ -22,8 +22,14 @@ export default function Home() {
 
   const fetchData = (category) => {
     setLoading(true);
-
-    fetch(`https://opentdb.com/api.php?amount=10&${category}`).then((res) =>
+    router.replace({
+      query: {
+        cat: router.query.cat || "any",
+      },
+    });
+    fetch(
+      `https://opentdb.com/api.php?amount=10&${category}&difficulty=easy`
+    ).then((res) =>
       res.json().then((questions) => {
         setLoading(false);
         setQuestions(questions.results);
@@ -48,32 +54,20 @@ export default function Home() {
           rel="icon"
           href="/icon/favicon-16x16-dunplab-manifest-26426.png"
         />
-        <script
-          data-ad-client="ca-pub-3337605713038685"
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-        ></script>
       </Head>
-      <div className="overflow-hidden h-screen">
-        <Header points={points} />
+      <Header />
 
-        <div
-          className={`pb-24 h-screen overflow-y-auto ${
-            loading ? "opacity-25" : ""
-          }`}
-        >
-          <br />
-
-          {questions.map((q, idx) => (
-            <Card
-              setPoints={(n) => setPoints((s) => Math.max(s + n, 0))}
-              key={`${q.correct_answer}__${idx}`}
-              {...q}
-            />
-          ))}
-        </div>
-        <Badge fetchData={fetchData} loading={loading} />
+      <div className={`pb-24 ${loading ? "opacity-25" : ""}`}>
+        <br />
+        {questions.map((q, idx) => (
+          <Card
+            setPoints={(n) => setPoints((s) => Math.max(s + n, 0))}
+            key={`${q.correct_answer}__${idx}`}
+            {...q}
+          />
+        ))}
       </div>
+      <Badge points={points} fetchData={fetchData} loading={loading} />
     </>
   );
 }
