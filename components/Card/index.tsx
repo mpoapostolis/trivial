@@ -58,7 +58,7 @@ export default function Card(props: Props) {
               if (!answer) {
                 const correct = answ === props.correct_answer;
                 setSound(correct ? "/bell.wav" : "gong.wav");
-                props.setPoints(correct ? givePoints() : -2);
+                props.setPoints(correct ? givePoints() : 0);
                 setAnswer(answ);
               }
             }}
