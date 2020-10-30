@@ -43,7 +43,10 @@ export default function Home() {
         <title>omega trivia </title>
         <link rel="manifest" href="/manifest.json" />
 
-        <meta name="description" content="Free online trivia game" />
+        <meta
+          name="description"
+          content="Test your brain and get smarter with online trivial questions every day"
+        />
         <meta property="og:title" content="Omega Trivia" />
         <meta property="og:type" content="question.game" />
         <meta
@@ -52,7 +55,7 @@ export default function Home() {
         />
         <meta
           name="keywords"
-          content="trivia, free trivia, trivia game, trivia-game"
+          content="quiz game, trivia game, free quiz, trivia-game, quiz-game, free trivia,test your brain, brain exercise, get smarter"
         />
 
         <meta name="author" content="mpoapostolis@gmail.com" />
