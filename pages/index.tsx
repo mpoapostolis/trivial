@@ -54,7 +54,10 @@ export default function Home() {
 
   const start = () => {
     if (!timer) setTimer(TIMER);
-    if (!id) setId(tick());
+    if (!id) {
+      setPoints(0);
+      setId(tick());
+    }
   };
 
   const togglePause = () => {
@@ -73,6 +76,7 @@ export default function Home() {
     clearInterval(id);
     setId(undefined);
     setTimer(undefined);
+    fetchData();
   };
 
   return (
@@ -103,7 +107,7 @@ export default function Home() {
         />
       </Head>
       {timer ? (
-        <div className="py-3 sticky z-50 w-full top-0  shadow bg-blue-700 text-white font-bold  flex  text-lg justify-center items-center">
+        <div className="py-3 sticky z-40 w-full top-0  shadow bg-blue-700 text-white font-bold  flex  text-lg justify-center items-center">
           Points: {points}
         </div>
       ) : (
@@ -127,7 +131,7 @@ export default function Home() {
         </div>
       ) : (
         <div className="text-center mt-48 text-blue-700">
-          <h1 className="font-bold text-3 xl">
+          <h1 className="font-bold text-3xl">
             {" "}
             {points ? `Your score: ${points}` : ""}
           </h1>
@@ -140,7 +144,6 @@ export default function Home() {
         fetchData={fetchData}
         isPaused={isPaused}
         start={start}
-        stop={stop}
         togglePause={togglePause}
         points={points}
         loading={loading}

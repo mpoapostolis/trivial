@@ -13,7 +13,6 @@ type Props = {
   isPaused: boolean;
   fetchData: () => void;
   start: () => void;
-  stop: () => void;
   togglePause: () => void;
 };
 export default function Badge(props: Props) {

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import useOnClickOutside from "use-onclickoutside";
 
 export const categories = [
@@ -41,7 +41,7 @@ export default function Header() {
   });
 
   return (
-    <nav ref={ref} className=" shadow z-50 border">
+    <nav ref={ref} className=" shadow z-50">
       <div className="md:block hidden container mx-auto px-6 py-3">
         <div className="py-3 w-full -mx-3 overflow-x-auto whitespace-no-wrap scroll-hidden">
           {categories.map((cat) => (
@@ -64,11 +64,12 @@ export default function Header() {
         {/* Dropdown toggle button */}
         <button
           onClick={() => setOpen(!open)}
-          className="relative z-10 flex items-center justify-center  w-full rounded-md bg-white p-2 focus:outline-none "
+          className="relative z-10 flex items-center bold justify-center text-lg font-bold  py-4 w-full bg-blue-700 text-white p-2 focus:outline-none "
         >
-          Category:{" "}
+          &nbsp;&nbsp;&nbsp;
           {categories.find((c) => c.value === router.query.cat)?.label ??
             `Any Category`}
+          &nbsp;&nbsp;&nbsp;
           <svg
             className="h-5 w-5 text-gray-800"
             xmlns="http://www.w3.org/2000/svg"
@@ -76,6 +77,7 @@ export default function Header() {
             fill="currentColor"
           >
             <path
+              fill="#fff"
               fillRule="evenodd"
               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
               clipRule="evenodd"
@@ -84,7 +86,7 @@ export default function Header() {
         </button>
         {/* Dropdown menu */}
         <div
-          className={`absolute border h-64 right-0 mt-1 w-full bg-white rounded-md shadow-xl z-20 ${
+          className={`absolute border h-64 right-0 mt-1 w-full bg-blue-700  rounded-md shadow-xl z-20 ${
             open ? "block" : "hidden"
           }`}
         >
@@ -93,12 +95,7 @@ export default function Header() {
               <Link key={cat.value} href={`?cat=${cat.value}`}>
                 <a
                   onClick={() => setOpen(!open)}
-                  className={`${
-                    cat.value === router.query.cat ||
-                    (router.query.cat === undefined && cat.value === "any")
-                      ? "text-blue-600 text-base"
-                      : ""
-                  } text-sm font-bold pb-2 block text-gray-700 border-b w-full my-3 leading-5 hover:text-blue-600 hover:underline mx-4 md:my-0`}
+                  className={`text-sm font-bold pb-2 block w-full my-3 leading-5 text-white hover:underline mx-4 md:my-0`}
                 >
                   {cat.label}
                 </a>
