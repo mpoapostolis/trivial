@@ -10,7 +10,6 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <title>omega trivia </title>
           <link rel="manifest" href="/manifest.json" />
 
           <script
