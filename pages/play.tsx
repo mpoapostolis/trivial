@@ -73,9 +73,7 @@ export default function Home() {
 
   const stop = () => {
     clearInterval(id);
-    setId(undefined);
-    setTimer(undefined);
-    fetchData();
+    router.push(`/?points=${points}`);
   };
 
   return (
@@ -115,6 +113,15 @@ export default function Home() {
           loading || isPaused ? "opacity-25 text-white" : ""
         }`}
       >
+        <ins
+          className="adsbygoogle"
+          style={{ display: "block" }}
+          data-ad-client="ca-pub-3337605713038685"
+          data-ad-slot="3046797178"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        ></ins>
+
         {questions.map((q, idx) => (
           <Card
             setPoints={(n) => setPoints((s) => Math.max(s + n, 0))}
