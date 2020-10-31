@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Card from "../components/Card";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { useRouter } from "next/router";
 import Badge from "../components/Refresh";
 
@@ -113,21 +113,24 @@ export default function Home() {
           loading || isPaused ? "opacity-25 text-white" : ""
         }`}
       >
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-3337605713038685"
-          data-ad-slot="3046797178"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        ></ins>
-
         {questions.map((q, idx) => (
-          <Card
-            setPoints={(n) => setPoints((s) => Math.max(s + n, 0))}
-            key={`${q.correct_answer}__${idx}`}
-            {...q}
-          />
+          <Fragment key={`${q.correct_answer}__${idx}`}>
+            {(idx === 2 || idx === 5 || idx === 9) && (
+              <ins
+                className="adsbygoogle"
+                style={{ display: "block" }}
+                data-ad-client="ca-pub-3337605713038685"
+                data-ad-slot="3046797178"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              />
+            )}
+
+            <Card
+              setPoints={(n) => setPoints((s) => Math.max(s + n, 0))}
+              {...q}
+            />
+          </Fragment>
         ))}
       </div>
 
