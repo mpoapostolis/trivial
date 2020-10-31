@@ -16,22 +16,7 @@ class MyDocument extends Document {
             async
             src="https://www.googletagmanager.com/gtag/js?id=G-RYKRKCMBJ8"
           ></script>
-          <script
-            data-ad-client="ca-pub-3337605713038685"
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          ></script>
-          <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          ></script>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-          (adsbygoogle = window.adsbygoogle || []).push({});</script>
-          `,
-            }}
-          ></script>
+
           <script
             dangerouslySetInnerHTML={{
               __html: `

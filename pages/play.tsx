@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Card from "../components/Card";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { useRouter } from "next/router";
 import Badge from "../components/Refresh";
 
@@ -102,6 +102,17 @@ export default function Home() {
           rel="icon"
           href="/icon/favicon-16x16-dunplab-manifest-26426.png"
         />
+
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        ></script>
+
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.adsbygoogle = (window.adsbygoogle || []).push({})`,
+          }}
+        ></script>
       </Head>
       <div className="py-3 sticky z-40 w-full top-0  shadow bg-blue-700 text-white font-bold  flex  text-lg justify-center items-center">
         Points: {points}
@@ -113,21 +124,24 @@ export default function Home() {
           loading || isPaused ? "opacity-25 text-white" : ""
         }`}
       >
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-3337605713038685"
-          data-ad-slot="3046797178"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        ></ins>
-
         {questions.map((q, idx) => (
-          <Card
-            setPoints={(n) => setPoints((s) => Math.max(s + n, 0))}
-            key={`${q.correct_answer}__${idx}`}
-            {...q}
-          />
+          <Fragment key={`${q.correct_answer}__${idx}`}>
+            {(idx === 2 || idx === 5 || idx === 9) && (
+              <ins
+                className="adsbygoogle  my-10"
+                style={{ display: "block" }}
+                data-ad-format="fluid"
+                data-ad-layout-key="-6t+ed+2i-1n-4w"
+                data-ad-client="ca-pub-3337605713038685"
+                data-ad-slot="7612728142"
+              ></ins>
+            )}
+
+            <Card
+              setPoints={(n) => setPoints((s) => Math.max(s + n, 0))}
+              {...q}
+            />
+          </Fragment>
         ))}
       </div>
 
