@@ -5,23 +5,29 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Badge from "../components/Refresh";
 
+const TIMER = 240;
+
 export default function Home() {
   const [questions, setQuestions] = useState([]);
   const [points, setPoints] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [timer, setTimer] = useState<number>();
+  const [isPaused, setIsPaused] = useState(false);
+  const [id, setId] = useState<any>();
+
   const router = useRouter();
 
   useEffect(() => {
+    fetchData();
+  }, [router.query.cat]);
+
+  const fetchData = () => {
+    setLoading(true);
     const category =
       router.query.cat === "any" || router.query.cat === undefined
         ? ""
         : `category=${router.query.cat}`;
 
-    fetchData(category);
-  }, [router.query.cat]);
-
-  const fetchData = (category) => {
-    setLoading(true);
     router.replace({
       query: {
         cat: router.query.cat || "any",
@@ -35,6 +41,36 @@ export default function Home() {
         setQuestions(questions.results);
       })
     );
+  };
+
+  const tick = () =>
+    setInterval(() => setTimer((t) => (t < 1 ? undefined : t - 1)), 1000);
+
+  useEffect(() => {
+    if (timer === 0 && id) {
+      stop();
+    }
+  }, [timer, id]);
+
+  const start = () => {
+    if (!timer) setTimer(TIMER);
+    if (!id) setId(tick());
+  };
+
+  const togglePause = () => {
+    if (isPaused) {
+      clearInterval(id);
+      setId(undefined);
+    } else {
+      start();
+    }
+    setIsPaused(!isPaused);
+  };
+
+  const stop = () => {
+    clearInterval(id);
+    setId(undefined);
+    setTimer(undefined);
   };
 
   return (
@@ -64,19 +100,42 @@ export default function Home() {
           href="/icon/favicon-16x16-dunplab-manifest-26426.png"
         />
       </Head>
-      <Header />
+      {timer ? (
+        <div className="py-3 sticky z-50 w-full top-0  shadow bg-blue-700 text-white font-bold  flex  text-lg justify-center items-center">
+          Points: {points}
+        </div>
+      ) : (
+        <Header />
+      )}
 
-      <div className={`pb-24 ${loading ? "opacity-25" : ""}`}>
-        <br />
-        {questions.map((q, idx) => (
-          <Card
-            setPoints={(n) => setPoints((s) => Math.max(s + n, 0))}
-            key={`${q.correct_answer}__${idx}`}
-            {...q}
-          />
-        ))}
-      </div>
-      <Badge points={points} fetchData={fetchData} loading={loading} />
+      <br />
+      {timer ? (
+        <div className={`pb-24 ${loading ? "opacity-25" : ""}`}>
+          {questions.map((q, idx) => (
+            <Card
+              setPoints={(n) => setPoints((s) => Math.max(s + n, 0))}
+              key={`${q.correct_answer}__${idx}`}
+              {...q}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center mt-48 text-blue-700">
+          <div> {points ? `Your score: ${points}` : ""}</div>
+          <h1 className="font-bold text-3xl">Select Category and</h1>
+          <h1 className="font-bold text-3xl">Press start to play</h1>
+        </div>
+      )}
+      <Badge
+        timer={timer}
+        fetchData={fetchData}
+        isPaused={isPaused}
+        start={start}
+        stop={stop}
+        togglePause={togglePause}
+        points={points}
+        loading={loading}
+      />
     </>
   );
 }
