@@ -50,7 +50,6 @@ export default function Home() {
   const start = () => {
     if (!timer) setTimer(TIMER);
     if (!id) {
-      setPoints(0);
       setId(tick());
     }
   };
