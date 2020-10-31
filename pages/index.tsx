@@ -58,13 +58,15 @@ export default function Home() {
   };
 
   const togglePause = () => {
-    if (isPaused) {
-      clearInterval(id);
-      setId(undefined);
-    } else {
-      start();
-    }
-    setIsPaused(!isPaused);
+    setIsPaused((isPaused) => {
+      if (!isPaused) {
+        clearInterval(id);
+        setId(undefined);
+      } else {
+        start();
+      }
+      return !isPaused;
+    });
   };
 
   const stop = () => {
@@ -110,7 +112,11 @@ export default function Home() {
 
       <br />
       {timer ? (
-        <div className={`pb-24 ${loading ? "opacity-25" : ""}`}>
+        <div
+          className={`pb-24 ${
+            loading || isPaused ? "opacity-25 text-white" : ""
+          }`}
+        >
           {questions.map((q, idx) => (
             <Card
               setPoints={(n) => setPoints((s) => Math.max(s + n, 0))}
@@ -121,9 +127,12 @@ export default function Home() {
         </div>
       ) : (
         <div className="text-center mt-48 text-blue-700">
-          <div> {points ? `Your score: ${points}` : ""}</div>
-          <h1 className="font-bold text-3xl">Select Category and</h1>
-          <h1 className="font-bold text-3xl">Press start to play</h1>
+          <h1 className="font-bold text-3 xl">
+            {" "}
+            {points ? `Your score: ${points}` : ""}
+          </h1>
+          <h1 className="font-bold text-lg">Select Category From the Header</h1>
+          <h1 className="font-bold text-lg">Then Press start to play</h1>
         </div>
       )}
       <Badge

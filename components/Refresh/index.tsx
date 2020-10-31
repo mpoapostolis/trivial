@@ -29,7 +29,7 @@ export default function Badge(props: Props) {
             className="w-full border-r  border-blue-400 shadow bg-blue-700 text-white font-bold  flex  justify-center items-center"
           >
             <span>
-              {props.isPaused ? (
+              {!props.isPaused ? (
                 <span className="text-lg">▋▋</span>
               ) : (
                 <span className="text-xl">▶</span>
