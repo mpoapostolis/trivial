@@ -6,6 +6,7 @@ import Link from "next/link";
 export default function Home() {
   const [q, setQ] = useState([]);
   const [ans, setAnsw] = useState({});
+  const [disable, setDisable] = useState(false);
   const [idx, setIdx] = useState(0);
   const [lifes, setLifes] = useState(5);
   const router = useRouter();
@@ -112,10 +113,12 @@ export default function Home() {
             </div>
             <div className="grid mt-20 grid-cols-1 lg:grid-cols-2 gap-4 mx-auto w-11/12 sm:w-4/6">
               {answers.map((ans) => (
-                <div
+                <button
                   key={ans}
+                  disabled={disable}
                   onClick={() => {
                     setAnsw((s) => ({ ...s, [q[idx].question]: ans }));
+                    setDisable(true);
                     if (ans !== q[idx].correct_answer) {
                       wrong.play();
                       setLifes(lifes - 1);
@@ -124,6 +127,7 @@ export default function Home() {
                     }
                     setTimeout(() => {
                       setIdx(idx + 1);
+                      setDisable(false);
                     }, 1000);
                   }}
                   role="button"
@@ -134,8 +138,13 @@ export default function Home() {
                           rounded-md transform transition text-2xl 
                           duration-100 hover:text-yellow-100 font-bold shadow-lg`}
                 >
-                  <div className="flex items-center">{ans}</div>
-                </div>
+                  {ans
+                    .replace(/&lt;/g, "<")
+                    .replace(/&gt;/g, ">")
+                    .replace(/&quot;/g, '"')
+                    .replace(/&amp;/g, "&")
+                    .replace(/&#039\;/g, "’")}
+                </button>
               ))}
             </div>
           </div>
